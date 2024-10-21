@@ -3,6 +3,23 @@
 The aimbot is designed to improve targeting precision in gameplay. When a player is within the designated Field of View (FOV) and clicks the left mouse button, the aimbot quickly adjusts the mouse cursor to align with the target's location.
 This swift flicking action helps to focus the player's aim directly on the enemy, enabling accurate targeting before shooting. The aimbot calculates the optimal angle and distance to the target, ensuring a seamless aiming experience. By significantly increasing the likelihood of hitting targets, the aimbot provides players with a substantial advantage in fast-paced gaming scenarios, where split-second decisions can determine the outcome of a match.
 
+
+## Required Libraries
+
+Before running the script, ensure you have the following Python libraries installed:
+
+- `opencv-python`
+- `mss`
+- `numpy`
+- `pyserial`
+- `pywin32`
+
+You can install these libraries by running the following command:
+
+```bash
+pip install opencv-python mss numpy pyserial pywin32
+```
+
 # How to Use the Aimbot
 
 1. **Setup:**

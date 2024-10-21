@@ -3,6 +3,7 @@ import os
 from mss import mss
 import numpy as np
 import win32api
+import win32con  # Import win32con to detect key presses
 import serial
 
 os.system("color 2")
@@ -57,7 +58,8 @@ def mousemove(x):
     arduino.write(pax)
 
 while True:
-    if win32api.GetAsyncKeyState(0x01) < 0:  # Left mouse button
+    # Check if either LMB (0x01) or the 'K' key (0x4B) is pressed
+    if win32api.GetAsyncKeyState(0x01) < 0 or win32api.GetAsyncKeyState(ord('K')) < 0:
         img = np.array(sct.grab(screenshot))
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, embaixo, emcima)

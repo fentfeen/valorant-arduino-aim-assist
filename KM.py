@@ -5,7 +5,14 @@ import numpy as np
 import win32api
 import win32con  # Import win32con to detect key presses
 import serial
+import webbrowser  # Import webbrowser to open URLs
 
+# Function to open the URL
+def open_browser():
+    url = "https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes"
+    webbrowser.open(url)
+
+# Clear screen and print header
 os.system("color 2")
 os.system("cls")
 print("       _                   _                   _             _           ")
@@ -24,11 +31,11 @@ print("      `'´              `'*'´¯          `*´                      `'*'�
 print("                                     KingMethod                                  ")
 print("                                                                                     ")
 
+# Open the URL in the browser
+open_browser()
+
 fov = int(input("FOV: "))
-
 sct = mss()
-
-arduino = serial.Serial('COM6', 115200)
 
 screenshot = sct.monitors[1]
 screenshot['left'] = int((screenshot['width'] / 2) - (fov / 2))
@@ -50,6 +57,10 @@ print("|  `----.|  `--'  |  /  _____  \\  |  '--'  ||  |____ |  '--'  |")
 print("|_______| \\______/  /__/     \\__\\ |_______/ |_______||_______/ ")
 print("                                                               ")
 
+# Get the custom virtual key binding from the user
+custom_key_input = input("Enter custom virtual key code for aimbot (The list has been opened in your browser. Press '.' to skip custom key binding)")
+custom_key_code = int(custom_key_input) if custom_key_input != "." else None
+
 def mousemove(x):
     if x < 0:
         x = x + 256
@@ -57,9 +68,12 @@ def mousemove(x):
     pax = [int(x)]
     arduino.write(pax)
 
+# Initialize serial communication with Arduino
+arduino = serial.Serial('COM6', 115200)
+
 while True:
-    # Check if either LMB (0x01) or the 'K' key (0x4B) is pressed
-    if win32api.GetAsyncKeyState(0x01) < 0 or win32api.GetAsyncKeyState(ord('K')) < 0:
+    # Check if either LMB (0x01), the 'K' key (0x4B), or the custom key is pressed
+    if win32api.GetAsyncKeyState(0x01) < 0 or win32api.GetAsyncKeyState(0x4B) < 0 or (custom_key_code is not None and win32api.GetAsyncKeyState(custom_key_code) < 0):
         img = np.array(sct.grab(screenshot))
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, embaixo, emcima)

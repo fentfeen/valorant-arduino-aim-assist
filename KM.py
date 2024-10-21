@@ -58,7 +58,7 @@ print("|_______| \\______/  /__/     \\__\\ |_______/ |_______||_______/ ")
 print("                                                               ")
 
 # Get the custom virtual key binding from the user
-custom_key_input = input("Enter custom virtual key code for aimbot (The list has been opened in your browser. Press '.' to skip custom key binding)")
+custom_key_input = input("Enter custom virtual key code for aimbot: (The list for virtual key codes has been opened in your browser. Press '.' to skip custom key binding)")
 custom_key_code = int(custom_key_input) if custom_key_input != "." else None
 
 def mousemove(x):
